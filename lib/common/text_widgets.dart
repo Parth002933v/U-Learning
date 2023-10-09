@@ -38,11 +38,14 @@ Widget text16Normal(
   );
 }
 
-Widget text14Normal(
-    {String text = "", Color color = AppColors.primarySecondaryElementText}) {
+Widget text14Normal({
+  String text = "",
+  Color color = AppColors.primarySecondaryElementText,
+  TextAlign textAlign = TextAlign.center,
+}) {
   return Text(
     text,
-    textAlign: TextAlign.center,
+    textAlign: textAlign,
     style: TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.normal,
@@ -50,4 +53,3 @@ Widget text14Normal(
     ),
   );
 }
-
