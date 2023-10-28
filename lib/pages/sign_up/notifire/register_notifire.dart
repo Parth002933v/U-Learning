@@ -23,7 +23,7 @@ class RegisterNotifier extends StateNotifier<RegisterState> {
   }
 }
 
-///------------ Provider------------------------------------------------------
+///---------------Provider------------------------------------------------------
 final registerProvider =
     StateNotifierProvider<RegisterNotifier, RegisterState>((ref) {
   return RegisterNotifier();

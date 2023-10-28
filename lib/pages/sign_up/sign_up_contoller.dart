@@ -16,10 +16,7 @@ class SignUpController {
     String password = state.password;
     String rePassword = state.confirmPassword;
 
-    print(name);
-    print(email);
-    print(password);
-    print(rePassword);
+
 
     // check the conditions
     if (name.isEmpty &&

@@ -91,7 +91,7 @@ class _SignUpState extends ConsumerState<SignUp> {
               hidePassword: true,
             ),
 
-            // Terms & Condition
+            /// Terms & Condition
             Container(
               margin: EdgeInsets.only(left: w * 0.05, right: w * 0.03),
               child: Row(
@@ -113,7 +113,7 @@ class _SignUpState extends ConsumerState<SignUp> {
               ),
             ),
 
-            // Register Button
+            /// Register Button
             Container(
               alignment: Alignment.center,
               margin: EdgeInsets.only(top: h * 0.1, bottom: h * 0.03),
