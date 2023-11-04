@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ulearning/common/provider/global_loder.dart';
 import 'package:ulearning/common/text_widgets.dart';
-import 'package:ulearning/common/utils/image_names.dart';
-import 'package:ulearning/common/widgets.dart';
-import 'package:ulearning/main.dart';
+import 'package:ulearning/common/utils/image_utils.dart';
+import 'package:ulearning/common/widgets/app_button.dart';
+import 'package:ulearning/common/widgets/app_textfield.dart';
+import 'package:ulearning/common/widgets/build_app_bar.dart';
 import 'package:ulearning/pages/sign_up/notifire/register_notifire.dart';
 import 'package:ulearning/pages/sign_up/sign_up_contoller.dart';
 
@@ -15,20 +18,14 @@ class SignUp extends ConsumerStatefulWidget {
 }
 
 class _SignUpState extends ConsumerState<SignUp> {
-  late SignUpController _controller;
-
-  // this will initialize the instance of the controller
-  @override
-  void initState() {
-    super.initState();
-
-    // assign the referebce value in object
-    _controller = SignUpController(ref: ref);
-  }
+  final SignUpController _controller = SignUpController();
 
   @override
   Widget build(BuildContext context) {
-    ref.watch(registerProvider);
+    print('register page');
+    final registerN = ref.read(registerProvider.notifier);
+    // ref.watch(registerProvider);
+    final bool globalLoaderP = ref.watch(globalLoaderProvider);
     return Scaffold(
       appBar: buildAppBar(tital: "SignUp"),
       body: SingleChildScrollView(
@@ -36,38 +33,35 @@ class _SignUpState extends ConsumerState<SignUp> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: h * 0.03),
+            SizedBox(height: 30.h),
 
-            
             Center(
               child:
                   text14Normal(text: "Enter your details below & free sign up"),
             ),
 
-            SizedBox(height: h * 0.06),
+            SizedBox(height: 40.h),
 
-            // User name text field
+            /// User name text field
             appTextField(
-              onchange: (value) =>
-                  ref.read(registerProvider.notifier).onUserNameChange(value),
+              onchange: (value) => registerN.onUserNameChange(value),
               text: "User name",
               hintText: "Enter Your User Name",
               iconName: IconImage.user,
             ),
 
-            // email text field
+            /// email text field
             appTextField(
               text: "Email",
+              keybordType: TextInputType.emailAddress,
               hintText: "Enter Your Email Address",
               iconName: IconImage.email,
-              onchange: (value) =>
-                  ref.read(registerProvider.notifier).onEmailChange(value),
+              onchange: (value) => registerN.onEmailChange(value),
             ),
 
-            // password text field
+            /// password text field
             appTextField(
-              onchange: (value) =>
-                  ref.read(registerProvider.notifier).onPasswordChange(value),
+              onchange: (value) => registerN.onPasswordChange(value),
               text: "Password",
               hintText: "Enter Password",
               iconName: IconImage.password2,
@@ -76,24 +70,20 @@ class _SignUpState extends ConsumerState<SignUp> {
               hidePassword: true,
             ),
 
-            // Confirm password text field
+            /// Confirm password text field
             appTextField(
-              onchange: (value) => ref
-                  .read(registerProvider.notifier)
-                  .onConfirmPasswordChange(value),
-
+              onchange: (value) => registerN.onConfirmPasswordChange(value),
               text: "Confirm Password",
               hintText: "Re-Enter Password",
-
               iconName: IconImage.password2,
-              //surfixIconName: IconImage.hidePassword,
-              // surfixIcon: true,
               hidePassword: true,
             ),
 
             /// Terms & Condition
             Container(
-              margin: EdgeInsets.only(left: w * 0.05, right: w * 0.03),
+              // margin: EdgeInsets.only(left: w * 0.05, right: w * 0.03),
+              margin: EdgeInsets.only(left: 25.w, right: 30.w),
+
               child: Row(
                 children: [
                   // chech box
@@ -116,10 +106,13 @@ class _SignUpState extends ConsumerState<SignUp> {
             /// Register Button
             Container(
               alignment: Alignment.center,
-              margin: EdgeInsets.only(top: h * 0.1, bottom: h * 0.03),
+              // margin: EdgeInsets.only(top: h * 0.1, bottom: h * 0.03),
+              margin: EdgeInsets.only(top: 30.h, bottom: 20.h),
+
               child: AppButton(
-                onTap: () => _controller.handleSignUp(),
+                onTap: () => SignUpController.handleSignUp(ref: ref),
                 buttonName: "Register",
+                isLoading: globalLoaderP,
               ),
             )
           ],

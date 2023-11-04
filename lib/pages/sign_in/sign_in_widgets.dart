@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ulearning/common/app_colors.dart';
 import 'package:ulearning/main.dart';
 
@@ -24,21 +25,10 @@ Widget thirdPartyLogin({
           shape: BoxShape.circle,
         ),
 
-        // image Logo // if the lofo is full then increase its Radius
-        // child: appImage(image: logo, width: fullLogo ? 40 : 30, height: 50),
-
-        // child: cachedappImage(
-        //   context: context!,
-        //   image: logo,
-        //   width: fullLogo ? w * 0.091 : w * 0.065,
-        //   height: h * 0.06,
-        // ),
-
         child: AppImage(
-          //context: context!,
           image: logo,
-          width: fullLogo ? w * 0.091 : w * 0.065,
-          height: h * 0.06,
+          width: fullLogo ? 37.w : 27.w,
+          height: 55.h,
         ),
       ),
     ),
@@ -53,7 +43,7 @@ Widget textUnderline(
       text,
       textAlign: TextAlign.center,
       style: TextStyle(
-        fontSize: 14,
+        fontSize: 14.spMin,
         decoration: TextDecoration.underline,
         decorationColor: AppColors.primaryText,
         fontWeight: FontWeight.normal,

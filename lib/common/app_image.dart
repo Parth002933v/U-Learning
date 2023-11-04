@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ulearning/common/utils/image_names.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ulearning/common/utils/image_utils.dart';
 import 'package:ulearning/main.dart';
 
 // Widget cachedappImage({
@@ -41,13 +42,18 @@ class AppImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ImageProvider myImage = AssetImage(image);
 
-
-
     return Image(
       image: myImage,
       fit: BoxFit.fitWidth,
-      height: isIcon ? h * 0.04 : height,
-      width: isIcon ? w * 0.04 : width,
+      height: isIcon ? 30.h : height,
+      width: isIcon ? 20.w : width,
     );
+
+    // return Image(
+    //   image: myImage,
+    //   fit: BoxFit.fitWidth,
+    //   height: isIcon ? h * 0.04 : height,
+    //   width: isIcon ? w * 0.04 : width,
+    // );
   }
 }

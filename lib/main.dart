@@ -8,24 +8,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ulearning/firebase_options.dart';
+import 'package:ulearning/global.dart';
 import 'package:ulearning/pages/sign_in/sign_in.dart';
 import 'package:ulearning/pages/sign_up/sign_up.dart';
 import 'package:ulearning/pages/welcome/welcome.dart';
 
-//
-late Size mq;
-late double h;
-late double w;
-
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  await Firebase.initializeApp();
+  Global.init();
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -44,19 +35,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'U Learning',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return ScreenUtilInit(
+      designSize: const Size(412, 892),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'U Learning',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        initialRoute: "/welcome",
+        routes: {
+          "/welcome": (context) => const Welcome(),
+          "/signIn": (context) => const SignIn(),
+          "/SignUp": (context) => const SignUp()
+        },
       ),
-      initialRoute: "/welcome",
-      routes: {
-        "/welcome": (context) => const Welcome(),
-        "/signIn": (context) => const SignIn(),
-        "/SignUp": (context) => const SignUp()
-      },
     );
   }
 }

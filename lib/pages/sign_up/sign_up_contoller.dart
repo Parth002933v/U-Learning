@@ -1,22 +1,21 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ulearning/common/provider/global_loder.dart';
 import 'package:ulearning/common/utils/tost_mesage.dart';
 import 'package:ulearning/pages/sign_up/notifire/register_notifire.dart';
 
 class SignUpController {
-  final WidgetRef ref;
+  // final WidgetRef ref;
 
-  SignUpController({required this.ref});
+  // SignUpController();
 
-  Future<void> handleSignUp() async {
+  static Future<void> handleSignUp({required WidgetRef ref}) async {
     final state = ref.read(registerProvider);
 
     String name = state.username;
     String email = state.email;
     String password = state.password;
     String rePassword = state.confirmPassword;
-
-
 
     // check the conditions
     if (name.isEmpty &&
@@ -36,21 +35,26 @@ class SignUpController {
       toastInfo("Password did not match");
     }
 
+    ref.read(globalLoaderProvider.notifier).setLoderValue(true);
     // if all the conditions are full fields
     try {
       final credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
 
       if (credential.user != null) {
-        print("${credential.user!.displayName} the display name");
-
-        credential.user!.sendEmailVerification();
-        credential.user!.updateDisplayName(name);
+        print(credential.user);
 
         print("${credential.user!.displayName} the display name");
 
-        toastInfo(
-            "The Email has been send to verify your accounnt. Please open that email");
+        await credential.user?.sendEmailVerification().then(
+              (value) => toastInfo(
+                  "The Email has been send to verify your accounnt. Please open that email"),
+            );
+        await credential.user?.updateDisplayName(name);
+
+        print(credential.user);
+
+        print("${credential.user!.displayName} the display name");
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -61,5 +65,7 @@ class SignUpController {
     } catch (e) {
       toastInfo(e.toString());
     }
+
+    ref.read(globalLoaderProvider.notifier).setLoderValue(false);
   }
 }
