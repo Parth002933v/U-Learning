@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ulearning/pages/sign_in/notifire/sign_in_state.dart';
+import 'package:ulearning/features/sign_in/provider/sign_in_state.dart';
 
 class SignInNotifier extends StateNotifier<SignInState> {
   SignInNotifier() : super(SignInState());

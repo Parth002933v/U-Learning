@@ -1,7 +1,7 @@
 // AppBar
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ulearning/common/text_widgets.dart';
+import 'package:ulearning/common/widgets/text_widgets.dart';
 
 AppBar buildAppBar({
   String tital = "Appbar",
@@ -9,6 +9,9 @@ AppBar buildAppBar({
   return AppBar(
     title: text20Normal(text: tital),
     centerTitle: true,
+    backgroundColor: Colors.white,
+    elevation: 0,
+    foregroundColor: Colors.black,
     bottom: PreferredSize(
       preferredSize: Size.fromHeight(9.h),
       child: Container(

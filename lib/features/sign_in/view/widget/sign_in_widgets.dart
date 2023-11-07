@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ulearning/common/app_colors.dart';
-import 'package:ulearning/main.dart';
+import 'package:ulearning/common/style/app_colors.dart';
 
-import '../../common/app_image.dart';
+import '../../../../common/widgets/app_image.dart';
 
 Widget thirdPartyLogin({
   String logo = "assets/googleLogo.png",

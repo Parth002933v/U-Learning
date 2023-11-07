@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:ulearning/pages/sign_up/notifire/register_state.dart';
+import 'package:ulearning/features/sign_up/provider/register_state.dart';
 // part 'register_notifire.g.dart';
 
 class RegisterNotifier extends StateNotifier<RegisterState> {

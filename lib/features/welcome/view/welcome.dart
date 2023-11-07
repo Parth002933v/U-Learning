@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ulearning/common/utils/image_utils.dart';
-import 'package:ulearning/main.dart';
-import 'package:ulearning/pages/welcome/notifire/welcome_notifire.dart';
-import 'package:ulearning/pages/welcome/welcome_widgets.dart';
+import 'package:ulearning/features/welcome/provider/welcome_notifire.dart';
+import 'package:ulearning/features/welcome/view/widget/welcome_widgets.dart';
+
 
 class Welcome extends ConsumerStatefulWidget {
   const Welcome({super.key});
@@ -38,6 +38,7 @@ class _WelcomeState extends ConsumerState<Welcome> {
         child: Stack(
           children: [
             // welcome pages
+
             PageView(
               physics: const RangeMaintainingScrollPhysics(),
               onPageChanged: (value) {
@@ -48,7 +49,7 @@ class _WelcomeState extends ConsumerState<Welcome> {
                 appOnBoardpage(
                   pagecontroller: _controller,
                   index: 1,
-                  image: wellcomeImages.WellcomeImage1,
+                  image: WelcomeImageConstant.onboardImage1,
                   titalText: "First See Learning",
                   subTital:
                       "Forget about a for of paper all knowledge in one learning!",
@@ -56,7 +57,7 @@ class _WelcomeState extends ConsumerState<Welcome> {
                 appOnBoardpage(
                   pagecontroller: _controller,
                   index: 2,
-                  image: wellcomeImages.WellcomeImage2,
+                  image: WelcomeImageConstant.onboardImage2,
                   titalText: "Connect With Everyone",
                   subTital:
                       "Always keep in touch with your tutor & friend Let's get connected!",
@@ -64,7 +65,7 @@ class _WelcomeState extends ConsumerState<Welcome> {
                 appOnBoardpage(
                   pagecontroller: _controller,
                   index: 3,
-                  image: wellcomeImages.WellcomeImage3,
+                  image: WelcomeImageConstant.onboardImage3,
                   titalText: " Always Fascinated Learning",
                   subTital:
                       "Anywhere anytime the time is at your discretion. So study whenever you want",
@@ -73,9 +74,9 @@ class _WelcomeState extends ConsumerState<Welcome> {
             ),
 
             // dot Indicator
-            Positioned(
+            PositionedDirectional(
+              start: 170.w,
               bottom: 150.h,
-              width: 415.w,
               child: DotsIndicator(
                 onTap: (value) {
                   _controller.animateToPage(

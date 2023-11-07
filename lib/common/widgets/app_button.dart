@@ -1,7 +1,10 @@
 // button
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ulearning/common/app_colors.dart';
+import 'package:ulearning/common/style/app_colors.dart';
+import 'package:ulearning/common/routes/route_name_constants.dart';
+import 'package:ulearning/common/utils/contants.dart';
+import 'package:ulearning/global.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({
@@ -50,9 +53,13 @@ class AppButton extends StatelessWidget {
                         curve: Curves.linear);
                   }
 
-                  // navigate to sign in page
+                  /// navigate to sign in page (onboard to sign in page)
                   else {
-                    Navigator.of(context).pushNamed("/signIn");
+                    Global.storageServices.setBool(
+                        AppConstants.STORAGE_DEVICE_FIRST_TIME_OPEN, true);
+
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        AppRouteConstants.SIGN_IN, (route) => false);
                   }
 
                   // if index is not given and void Function is given

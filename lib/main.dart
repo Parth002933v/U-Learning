@@ -4,29 +4,14 @@
 // [log] Heigth 843.4285714285714
 // [log] with 411.42857142857144
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ulearning/firebase_options.dart';
+import 'package:ulearning/common/routes/routes.dart';
 import 'package:ulearning/global.dart';
-import 'package:ulearning/pages/sign_in/sign_in.dart';
-import 'package:ulearning/pages/sign_up/sign_up.dart';
-import 'package:ulearning/pages/welcome/welcome.dart';
 
 Future<void> main() async {
-  Global.init();
-
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-      systemNavigationBarIconBrightness: Brightness.dark,
-      systemNavigationBarColor: Colors.transparent,
-    ),
-  );
-
+  await Global.init();
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -44,14 +29,10 @@ class MyApp extends StatelessWidget {
         title: 'U Learning',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
+          useMaterial3: false,
         ),
-        initialRoute: "/welcome",
-        routes: {
-          "/welcome": (context) => const Welcome(),
-          "/signIn": (context) => const SignIn(),
-          "/SignUp": (context) => const SignUp()
-        },
+        // initialRoute: "/welcome",
+        onGenerateRoute: AppRoutes.onGenerateRoute,
       ),
     );
   }

@@ -1,16 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ulearning/common/entities/entitites.dart';
-// import 'package:ulearning/common/entities/entitites.dart';
+import 'package:ulearning/common/model/user.dart';
 import 'package:ulearning/common/provider/global_loder.dart';
+import 'package:ulearning/common/routes/route_name_constants.dart';
 import 'package:ulearning/common/utils/contants.dart';
 import 'package:ulearning/common/utils/tost_mesage.dart';
+import 'package:ulearning/features/sign_in/provider/sign_in_notifire.dart';
 import 'package:ulearning/global.dart';
-import 'package:ulearning/pages/sign_in/notifire/sign_in_notifire.dart';
 
 class SignInController {
-  Future<void> handleSignIn({required WidgetRef ref}) async {
+  WidgetRef ref;
+
+  SignInController({required this.ref});
+
+  Future<void> handleSignIn() async {
     final state = ref.read(SignInProvider);
 
     final String email = state.email;
@@ -39,7 +43,9 @@ class SignInController {
       }
 
       if (!credential.user!.emailVerified) {
-        toastInfo("You must first verify your email");
+        toastInfo("You must verify your email first");
+        ref.read(globalLoaderProvider.notifier).setLoderValue(false);
+        return;
       }
 
       var user = credential.user;
@@ -71,8 +77,12 @@ class SignInController {
         toastInfo('Wrong password provided for that user.');
       } else if (e.code == "INVALID_LOGIN_CREDENTIALS") {
         toastInfo('invalid login credentials');
+      } else if (e.code == 'invalid-email') {
+        toastInfo('Please enter valid email');
       } else {
         toastInfo(e.toString());
+
+        print(e);
       }
     } catch (e) {
       toastInfo(e.toString());
@@ -83,13 +93,16 @@ class SignInController {
 
   void asyncPostAllData(LoginRequestEntity loginRequestEntity) {
     try {
-      // Navigator.of(r)
+      final navigate = Navigator.of(ref.context);
       Global.storageServices
-          .setString(AppContants.STORAGE_USER_PROFILE_KEY, 'value');
+          .setString(AppConstants.STORAGE_USER_PROFILE_KEY, 'value');
       Global.storageServices
-          .setString(AppContants.STORAGE_USER_TOKEN_KEY, 'value');
+          .setString(AppConstants.STORAGE_USER_TOKEN_KEY, 'value');
+
+      navigate.pushNamedAndRemoveUntil(
+          AppRouteConstants.APPLICATION, (route) => false);
     } catch (e) {
-      print(e);
+      toastInfo(e.toString());
     }
   }
 }

@@ -1,15 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ulearning/common/provider/global_loder.dart';
 import 'package:ulearning/common/utils/tost_mesage.dart';
-import 'package:ulearning/pages/sign_up/notifire/register_notifire.dart';
+import 'package:ulearning/features/sign_up/provider/register_notifire.dart';
 
 class SignUpController {
-  // final WidgetRef ref;
+  late WidgetRef ref;
 
-  // SignUpController();
+  SignUpController({required this.ref});
 
-  static Future<void> handleSignUp({required WidgetRef ref}) async {
+  void handleSignUp() async {
     final state = ref.read(registerProvider);
 
     String name = state.username;
@@ -36,25 +37,21 @@ class SignUpController {
     }
 
     ref.read(globalLoaderProvider.notifier).setLoderValue(true);
-    // if all the conditions are full fields
+
+    /// if all the conditions are full fields
     try {
+      final navigate = Navigator.of(ref.context);
+
       final credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
 
       if (credential.user != null) {
-        print(credential.user);
-
-        print("${credential.user!.displayName} the display name");
-
         await credential.user?.sendEmailVerification().then(
               (value) => toastInfo(
                   "The Email has been send to verify your accounnt. Please open that email"),
             );
-        await credential.user?.updateDisplayName(name);
-
-        print(credential.user);
-
-        print("${credential.user!.displayName} the display name");
+        credential.user?.updateDisplayName(name);
+        navigate.pop();
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

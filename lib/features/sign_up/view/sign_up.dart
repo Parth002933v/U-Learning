@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ulearning/common/provider/global_loder.dart';
-import 'package:ulearning/common/text_widgets.dart';
+import 'package:ulearning/common/widgets/text_widgets.dart';
 import 'package:ulearning/common/utils/image_utils.dart';
 import 'package:ulearning/common/widgets/app_button.dart';
 import 'package:ulearning/common/widgets/app_textfield.dart';
 import 'package:ulearning/common/widgets/build_app_bar.dart';
-import 'package:ulearning/pages/sign_up/notifire/register_notifire.dart';
-import 'package:ulearning/pages/sign_up/sign_up_contoller.dart';
+import 'package:ulearning/features/sign_up/controller/sign_up_contoller.dart';
+import 'package:ulearning/features/sign_up/provider/register_notifire.dart';
 
 class SignUp extends ConsumerStatefulWidget {
   const SignUp({super.key});
@@ -18,7 +18,14 @@ class SignUp extends ConsumerStatefulWidget {
 }
 
 class _SignUpState extends ConsumerState<SignUp> {
-  final SignUpController _controller = SignUpController();
+  late final SignUpController _controller;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller = SignUpController(ref: ref);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +54,7 @@ class _SignUpState extends ConsumerState<SignUp> {
               onchange: (value) => registerN.onUserNameChange(value),
               text: "User name",
               hintText: "Enter Your User Name",
-              iconName: IconImage.user,
+              iconName: IconImageConstant.user,
             ),
 
             /// email text field
@@ -55,7 +62,7 @@ class _SignUpState extends ConsumerState<SignUp> {
               text: "Email",
               keybordType: TextInputType.emailAddress,
               hintText: "Enter Your Email Address",
-              iconName: IconImage.email,
+              iconName: IconImageConstant.email,
               onchange: (value) => registerN.onEmailChange(value),
             ),
 
@@ -64,8 +71,8 @@ class _SignUpState extends ConsumerState<SignUp> {
               onchange: (value) => registerN.onPasswordChange(value),
               text: "Password",
               hintText: "Enter Password",
-              iconName: IconImage.password2,
-              surfixIconName: IconImage.hidePassword,
+              iconName: IconImageConstant.password2,
+              surfixIconName: IconImageConstant.hidePassword,
               surfixIcon: true,
               hidePassword: true,
             ),
@@ -75,7 +82,7 @@ class _SignUpState extends ConsumerState<SignUp> {
               onchange: (value) => registerN.onConfirmPasswordChange(value),
               text: "Confirm Password",
               hintText: "Re-Enter Password",
-              iconName: IconImage.password2,
+              iconName: IconImageConstant.password2,
               hidePassword: true,
             ),
 
@@ -110,7 +117,7 @@ class _SignUpState extends ConsumerState<SignUp> {
               margin: EdgeInsets.only(top: 30.h, bottom: 20.h),
 
               child: AppButton(
-                onTap: () => SignUpController.handleSignUp(ref: ref),
+                onTap: () =>  _controller.handleSignUp(),
                 buttonName: "Register",
                 isLoading: globalLoaderP,
               ),
