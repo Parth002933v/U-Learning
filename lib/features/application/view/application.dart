@@ -13,8 +13,7 @@ class Application extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final index = ref.watch(navBarProvider);
     return Scaffold(
-      appBar: buildAppBar(tital: 'Home'),
-      body: ScreenOfIndex(index: index, context: context),
+      body: ScreenOfIndex(index: index),
       bottomNavigationBar: Container(
         width: 350.w,
         height: 62.h,

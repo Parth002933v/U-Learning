@@ -7,7 +7,7 @@ import 'package:ulearning/common/widgets/text_widgets.dart';
 import 'package:ulearning/common/utils/image_utils.dart';
 
 Widget appTextField({
-  final String text = "text",
+  final String onTopFieldText = "email",
   final String hintText = "Hint Text",
   final String iconName = IconImageConstant.user,
   final bool surfixIcon = false,
@@ -28,7 +28,7 @@ Widget appTextField({
         /// text and space form text // widget 1
         Container(
           margin: EdgeInsets.only(bottom: 5.h, left: 5.w),
-          child: text14Normal(text: text),
+          child: Text14Normal(text: onTopFieldText),
         ),
 
         ///textFormField
@@ -61,34 +61,11 @@ Widget appTextField({
                 /// TextFormField
                 SizedBox(
                   width: surfixIcon ? 250.w : 300.w,
-                  child: TextFormField(
-                    onChanged: (value) => onchange(value),
-                    maxLines: 1,
-                    autocorrect: false,
-                    textAlign: TextAlign.start,
-                    textAlignVertical: TextAlignVertical.center,
-                    obscureText: hidePassword,
-                    keyboardType: keybordType,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(
-                        left: 2.w,
-                        right: 2.w,
-                      ), // important
-                      hintText: hintText,
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                        ),
-                      ),
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                        ),
-                      ),
-                      border: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.transparent),
-                      ),
-                    ),
+                  child: appTextFieldOnly(
+                    onchange: (value) => onchange(value),
+                    hintText: hintText,
+                    hidePassword: hidePassword,
+                    keybordType: keybordType,
                   ),
                 ),
 
@@ -113,6 +90,44 @@ Widget appTextField({
           }),
         ),
       ],
+    ),
+  );
+}
+
+///  AppTextFieldonly
+Widget appTextFieldOnly({
+  final String hintText = "Hint Text",
+  bool hidePassword = false,
+  required void Function(String value) onchange,
+  TextInputType keybordType = TextInputType.text,
+}) {
+  return TextFormField(
+    onChanged: (value) => onchange(value),
+    maxLines: 1,
+    autocorrect: false,
+    textAlign: TextAlign.start,
+    textAlignVertical: TextAlignVertical.center,
+    obscureText: hidePassword,
+    keyboardType: keybordType,
+    decoration: InputDecoration(
+      contentPadding: EdgeInsets.only(
+        left: 2.w,
+        right: 2.w,
+      ), // important
+      hintText: hintText,
+      enabledBorder: const OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.transparent,
+        ),
+      ),
+      focusedBorder: const OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.transparent,
+        ),
+      ),
+      border: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.transparent),
+      ),
     ),
   );
 }

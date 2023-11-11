@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ulearning/common/provider/global_loder.dart';
 import 'package:ulearning/common/utils/tost_mesage.dart';
 import 'package:ulearning/features/sign_up/provider/register_notifire.dart';
+import 'package:ulearning/main.dart';
 
 class SignUpController {
   late WidgetRef ref;
@@ -40,8 +41,6 @@ class SignUpController {
 
     /// if all the conditions are full fields
     try {
-      final navigate = Navigator.of(ref.context);
-
       final credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
 
@@ -51,7 +50,7 @@ class SignUpController {
                   "The Email has been send to verify your accounnt. Please open that email"),
             );
         credential.user?.updateDisplayName(name);
-        navigate.pop();
+        navkey.currentState?.pop();
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

@@ -5,4 +5,5 @@ class AppRouteConstants {
   static const String SIGN_IN = '/signIn';
   static const String SIGN_UP = '/SignUp';
   static const String APPLICATION = '/application';
+  static const String HOME = '/home';
 }

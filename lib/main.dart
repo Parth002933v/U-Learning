@@ -8,12 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ulearning/common/routes/routes.dart';
+import 'package:ulearning/common/style/app_colors.dart';
 import 'package:ulearning/global.dart';
 
 Future<void> main() async {
   await Global.init();
   runApp(const ProviderScope(child: MyApp()));
 }
+
+GlobalKey<NavigatorState> navkey = GlobalKey();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -25,12 +28,15 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) => MaterialApp(
+        navigatorKey: navkey,
         debugShowCheckedModeBanner: false,
         title: 'U Learning',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: false,
+        theme: ThemeData.light(useMaterial3: false).copyWith(
+          scaffoldBackgroundColor: AppColors.primarBackground,
+          appBarTheme:
+              const AppBarTheme(backgroundColor: AppColors.primarBackground),
         ),
+        themeMode: ThemeMode.system,
         // initialRoute: "/welcome",
         onGenerateRoute: AppRoutes.onGenerateRoute,
       ),

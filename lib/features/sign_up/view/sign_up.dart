@@ -44,7 +44,7 @@ class _SignUpState extends ConsumerState<SignUp> {
 
             Center(
               child:
-                  text14Normal(text: "Enter your details below & free sign up"),
+                  Text14Normal(text: "Enter your details below & free sign up"),
             ),
 
             SizedBox(height: 40.h),
@@ -52,14 +52,14 @@ class _SignUpState extends ConsumerState<SignUp> {
             /// User name text field
             appTextField(
               onchange: (value) => registerN.onUserNameChange(value),
-              text: "User name",
+              onTopFieldText: "User name",
               hintText: "Enter Your User Name",
               iconName: IconImageConstant.user,
             ),
 
             /// email text field
             appTextField(
-              text: "Email",
+              onTopFieldText: "Email",
               keybordType: TextInputType.emailAddress,
               hintText: "Enter Your Email Address",
               iconName: IconImageConstant.email,
@@ -69,7 +69,7 @@ class _SignUpState extends ConsumerState<SignUp> {
             /// password text field
             appTextField(
               onchange: (value) => registerN.onPasswordChange(value),
-              text: "Password",
+              onTopFieldText: "Password",
               hintText: "Enter Password",
               iconName: IconImageConstant.password2,
               surfixIconName: IconImageConstant.hidePassword,
@@ -80,7 +80,7 @@ class _SignUpState extends ConsumerState<SignUp> {
             /// Confirm password text field
             appTextField(
               onchange: (value) => registerN.onConfirmPasswordChange(value),
-              text: "Confirm Password",
+              onTopFieldText: "Confirm Password",
               hintText: "Re-Enter Password",
               iconName: IconImageConstant.password2,
               hidePassword: true,
@@ -101,7 +101,7 @@ class _SignUpState extends ConsumerState<SignUp> {
 
                   //text
                   Flexible(
-                    child: text14Normal(
+                    child: Text14Normal(
                         textAlign: TextAlign.start,
                         text:
                             "By Creating an account you have to agree with our term & condition"),

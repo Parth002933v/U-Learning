@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ulearning/common/routes/route_name_constants.dart';
 import 'package:ulearning/features/application/view/application.dart';
+import 'package:ulearning/features/home/view/home.dart';
 import 'package:ulearning/features/sign_in/view/sign_in.dart';
 import 'package:ulearning/features/sign_up/view/sign_up.dart';
 import 'package:ulearning/features/welcome/view/welcome.dart';
 import 'package:ulearning/global.dart';
-
 
 class AppRoutes {
   static List<RouteEntity> routes = [
@@ -13,12 +13,10 @@ class AppRoutes {
     RouteEntity(path: AppRouteConstants.SIGN_IN, page: const SignIn()),
     RouteEntity(path: AppRouteConstants.SIGN_UP, page: const SignUp()),
     RouteEntity(path: AppRouteConstants.APPLICATION, page: const Application()),
+    RouteEntity(path: AppRouteConstants.HOME, page: const Home()),
   ];
 
-
   static MaterialPageRoute onGenerateRoute(RouteSettings settings) {
-    print("clicked route is ${settings.name}");
-
     if (settings.name != null) {
       var result = routes.where((r) => r.path == settings.name);
 
@@ -38,8 +36,6 @@ class AppRoutes {
                 builder: (_) => const SignIn(), settings: settings);
           }
         } else {
-          print('App ran first time');
-
           return MaterialPageRoute(
               builder: (_) => result.first.page, settings: settings);
         }

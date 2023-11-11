@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ulearning/common/model/entitites.dart';
 import 'package:ulearning/common/utils/contants.dart';
 
 class StorageServices {
@@ -28,7 +31,16 @@ class StorageServices {
         : false;
   }
 
-  Future<bool> logout() async {
+  Future logout() async {
     return await _preferences.remove(AppConstants.STORAGE_USER_PROFILE_KEY);
+  }
+
+  UserProfile getUserProfileInfo() {
+    final userPeofileInfo =
+        _preferences.getString(AppConstants.STORAGE_USER_PROFILE_KEY) ?? '';
+
+    final usetJson = UserProfile.fromJson(jsonDecode(userPeofileInfo));
+
+    return usetJson;
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,6 +10,7 @@ import 'package:ulearning/common/utils/contants.dart';
 import 'package:ulearning/common/utils/tost_mesage.dart';
 import 'package:ulearning/features/sign_in/provider/sign_in_notifire.dart';
 import 'package:ulearning/global.dart';
+import 'package:ulearning/main.dart';
 
 class SignInController {
   WidgetRef ref;
@@ -15,7 +18,7 @@ class SignInController {
   SignInController({required this.ref});
 
   Future<void> handleSignIn() async {
-    final state = ref.read(SignInProvider);
+    final state = ref.read(signInProvider);
 
     final String email = state.email;
     final String password = state.password;
@@ -93,13 +96,17 @@ class SignInController {
 
   void asyncPostAllData(LoginRequestEntity loginRequestEntity) {
     try {
-      final navigate = Navigator.of(ref.context);
-      Global.storageServices
-          .setString(AppConstants.STORAGE_USER_PROFILE_KEY, 'value');
+      Global.storageServices.setString(
+        AppConstants.STORAGE_USER_PROFILE_KEY,
+        jsonEncode(
+          {'name': loginRequestEntity.name, 'email': loginRequestEntity.email},
+        ),
+      );
+
       Global.storageServices
           .setString(AppConstants.STORAGE_USER_TOKEN_KEY, 'value');
 
-      navigate.pushNamedAndRemoveUntil(
+      navkey.currentState?.pushNamedAndRemoveUntil(
           AppRouteConstants.APPLICATION, (route) => false);
     } catch (e) {
       toastInfo(e.toString());

@@ -40,7 +40,7 @@ Widget appOnBoardpage({
             // padding: EdgeInsets.only(left: w * 0.1, right: w * 0.1),
             padding: EdgeInsets.only(left: 5.w, right: 5.w),
 
-            child: text16Normal(
+            child: Text16Normal(
               text: subTital,
               color: AppColors.primarySecondaryElementText,
             ),

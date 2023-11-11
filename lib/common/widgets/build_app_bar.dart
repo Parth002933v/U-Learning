@@ -1,6 +1,7 @@
 // AppBar
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ulearning/common/style/app_colors.dart';
 import 'package:ulearning/common/widgets/text_widgets.dart';
 
 AppBar buildAppBar({
@@ -9,7 +10,7 @@ AppBar buildAppBar({
   return AppBar(
     title: text20Normal(text: tital),
     centerTitle: true,
-    backgroundColor: Colors.white,
+    // backgroundColor: Colors.white,
     elevation: 0,
     foregroundColor: Colors.black,
     bottom: PreferredSize(

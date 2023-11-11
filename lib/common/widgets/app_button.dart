@@ -80,7 +80,7 @@ class AppButton extends StatelessWidget {
             RoundedRectangleBorder(
               side: BorderSide(
                 width: isLogin ? 0 : 1,
-                color: AppColors.primaryThreeElementText,
+                color: AppColors.primaryThirdElementText,
               ),
               borderRadius: BorderRadius.circular(15),
             ),

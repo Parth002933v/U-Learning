@@ -24,3 +24,19 @@ class WelcomeImageConstant {
   static const String onboardImage2 = "assets/images/onboard2.png";
   static const String onboardImage3 = "assets/images/onboard3.png";
 }
+
+class ImageUtils {
+  ImageUtils._();
+
+  static const String _basePathIcons = 'assets/icons';
+  static const String defaultImg = '$_basePathIcons/default.png';
+  static const String searchIcon = '$_basePathIcons/search.png';
+  static const String filterIcon = '$_basePathIcons/filter.png';
+  static const String homeBanner0 = '$_basePathIcons/Banner0.png';
+  static const String homeBanner1 = '$_basePathIcons/Banner1.png';
+  static const String homeBanner2 = '$_basePathIcons/Banner2.png';
+  static const String homeBanner3 = '$_basePathIcons/Banner3.png';
+  static const String menu = '$_basePathIcons/menu.png';
+  static const String user = '$_basePathIcons/person.png';
+  static const String me = '$_basePathIcons/me.png';
+}

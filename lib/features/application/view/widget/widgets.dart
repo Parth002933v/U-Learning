@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ulearning/common/routes/route_name_constants.dart';
-import 'package:ulearning/global.dart';
+import 'package:ulearning/features/home/view/home.dart';
 
 List<BottomNavigationBarItem> get bottomTab => [
       const BottomNavigationBarItem(
@@ -12,17 +11,9 @@ List<BottomNavigationBarItem> get bottomTab => [
       const BottomNavigationBarItem(icon: Icon(Icons.person), label: 'play'),
     ];
 
-Widget ScreenOfIndex({required int index, required BuildContext context}) {
+Widget ScreenOfIndex({required int index}) {
   List<Widget> screens = [
-    Center(
-        child: TextButton(
-            onPressed: () {
-              Global.storageServices.logout().then(
-                    (value) => Navigator.of(context).pushNamedAndRemoveUntil(
-                        AppRouteConstants.SIGN_IN, (route) => false),
-                  );
-            },
-            child: Text('LogOut'))),
+    Home(),
     Center(child: Icon(Icons.search)),
     Center(child: Icon(Icons.play_arrow)),
     Center(child: Icon(Icons.message)),

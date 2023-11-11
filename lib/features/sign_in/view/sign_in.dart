@@ -31,11 +31,12 @@ class _SignInState extends ConsumerState<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    final signInN = ref.read(SignInProvider.notifier);
+    final signInN = ref.read(signInProvider.notifier);
     final globalLoaderP = ref.watch(globalLoaderProvider);
     return Scaffold(
       // white backgroundColor
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
+
 
       // custom appbar
       appBar: buildAppBar(tital: "Login"),
@@ -71,7 +72,7 @@ class _SignInState extends ConsumerState<SignIn> {
             SizedBox(height: 20.h),
 
             Center(
-              child: text14Normal(text: "Or use your email account to login"),
+              child: Text14Normal(text: "Or use your email account to login"),
             ),
 
             SizedBox(height: 80.h),
@@ -79,7 +80,7 @@ class _SignInState extends ConsumerState<SignIn> {
             /// email
             appTextField(
               onchange: (value) => signInN.onEmailChange(value),
-              text: "Email",
+              onTopFieldText: "Email",
               keybordType: TextInputType.emailAddress,
               hintText: "Enter Your Email Address",
               iconName: IconImageConstant.user,
@@ -88,7 +89,7 @@ class _SignInState extends ConsumerState<SignIn> {
             /// password
             appTextField(
               onchange: (value) => signInN.onPasswordChange(value),
-              text: "Password",
+              onTopFieldText: "Password",
               hintText: "Enter Password",
               iconName: IconImageConstant.password2,
               surfixIconName: IconImageConstant.hidePassword,

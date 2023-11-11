@@ -2,7 +2,7 @@ import 'dart:ui';
 
 class AppColors {
   //white background
-  static const Color primarBackground = Color.fromARGB(255, 255, 255, 255);
+  static const Color primarBackground = Color.fromARGB(255, 248, 248, 249);
 
   //grey background
   static const Color primarySecondaryBackground =
@@ -25,7 +25,7 @@ class AppColors {
       Color.fromARGB(255, 102, 102, 102);
 
   //main widget third color grey
-  static const Color primaryThreeElementText =
+  static const Color primaryThirdElementText =
       Color.fromARGB(255, 170, 170, 170);
 
   static const Color primaryFourthElementText =
