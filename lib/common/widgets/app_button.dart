@@ -99,7 +99,7 @@ class AppButton extends StatelessWidget {
             ? const Text('Get Started')
             : isLoading == false
                 ? Text(buttonName)
-                : CircularProgressIndicator(
+                : const CircularProgressIndicator(
                     color: Colors.white,
                   ),
       ),

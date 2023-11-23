@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ulearning/common/routes/route_name_constants.dart';
 import 'package:ulearning/features/application/view/application.dart';
+import 'package:ulearning/features/course_detail/view/course_detail.dart';
 import 'package:ulearning/features/home/view/home.dart';
 import 'package:ulearning/features/sign_in/view/sign_in.dart';
 import 'package:ulearning/features/sign_up/view/sign_up.dart';
@@ -14,6 +15,8 @@ class AppRoutes {
     RouteEntity(path: AppRouteConstants.SIGN_UP, page: const SignUp()),
     RouteEntity(path: AppRouteConstants.APPLICATION, page: const Application()),
     RouteEntity(path: AppRouteConstants.HOME, page: const Home()),
+    RouteEntity(
+        path: AppRouteConstants.COURSE_DETAIL, page: const CourseDetaild())
   ];
 
   static MaterialPageRoute onGenerateRoute(RouteSettings settings) {
@@ -27,7 +30,7 @@ class AppRoutes {
         if (result.first.path == AppRouteConstants.WELCOME && deviceFirstTime) {
           bool isLoggedIn = Global.storageServices.isLoggedIn();
 
-          /// already login
+          /// already login or not
           if (isLoggedIn) {
             return MaterialPageRoute(
                 builder: (_) => const Application(), settings: settings);

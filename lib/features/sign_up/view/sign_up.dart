@@ -42,7 +42,7 @@ class _SignUpState extends ConsumerState<SignUp> {
           children: [
             SizedBox(height: 30.h),
 
-            Center(
+            const Center(
               child:
                   Text14Normal(text: "Enter your details below & free sign up"),
             ),
@@ -100,7 +100,7 @@ class _SignUpState extends ConsumerState<SignUp> {
                   ),
 
                   //text
-                  Flexible(
+                  const Flexible(
                     child: Text14Normal(
                         textAlign: TextAlign.start,
                         text:
@@ -117,7 +117,7 @@ class _SignUpState extends ConsumerState<SignUp> {
               margin: EdgeInsets.only(top: 30.h, bottom: 20.h),
 
               child: AppButton(
-                onTap: () =>  _controller.handleSignUp(),
+                onTap: () => _controller.handleSignUp(),
                 buttonName: "Register",
                 isLoading: globalLoaderP,
               ),

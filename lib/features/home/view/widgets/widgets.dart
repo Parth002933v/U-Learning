@@ -2,16 +2,22 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ulearning/common/routes/route_name_constants.dart';
 import 'package:ulearning/common/style/app_colors.dart';
 import 'package:ulearning/common/style/textfield_box_decoration.dart';
+import 'package:ulearning/common/utils/contants.dart';
 import 'package:ulearning/common/utils/image_utils.dart';
+import 'package:ulearning/common/utils/tost_mesage.dart';
 import 'package:ulearning/common/widgets/app_image.dart';
 import 'package:ulearning/common/widgets/app_textfield.dart';
 import 'package:ulearning/common/widgets/text_widgets.dart';
-import 'package:ulearning/features/home/provider/dot_index_provider.dart';
+import 'package:ulearning/features/home/controller/dot_index_provider.dart';
+import 'package:ulearning/features/home/povider/course_list_provider.dart';
 import 'package:ulearning/global.dart';
+import 'package:ulearning/main.dart';
 
-AppBar homeAppBar() {
+AppBar homeAppBar({required WidgetRef ref}) {
+  final profileState = ref.watch(homeUserProfileProvider);
   return AppBar(
     elevation: 0,
     flexibleSpace: Container(
@@ -20,21 +26,29 @@ AppBar homeAppBar() {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          AppIconImage(image: ImageUtils.menu),
-          GestureDetector(
-            onTap: () {},
-            child: Container(
-              height: 40.h,
-              width: 40.w,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(ImageUtils.me),
-                  fit: BoxFit.fill,
+          appIconImage(image: ImageUtils.menu),
+          profileState.when(
+            data: (data) {
+              return GestureDetector(
+                onTap: () {},
+                child: Container(
+                  height: 40.h,
+                  width: 40.w,
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          "${AppConstants.SERVER_API_URL}${data.avatar!}"),
+                      fit: BoxFit.scaleDown,
+                    ),
+                    shape: BoxShape.circle,
+                  ),
                 ),
-                shape: BoxShape.circle,
-              ),
-            ),
-          ),
+              );
+            },
+            error: (error, stackTrace) => Container(),
+            loading: () => Container(),
+          )
         ],
       ),
     ),
@@ -75,7 +89,7 @@ Widget homeSearchBar() {
           children: [
             Container(
               margin: REdgeInsets.only(left: 15.w, right: 5.w),
-              child: AppIconImage(image: ImageUtils.searchIcon),
+              child: appIconImage(image: ImageUtils.searchIcon),
             ),
             SizedBox(
               width: 240.w,
@@ -90,13 +104,11 @@ Widget homeSearchBar() {
 
       /// filter
       GestureDetector(
-        onTap: () {
-          print('object');
-        },
+        onTap: () {},
         child: Container(
           margin: EdgeInsets.only(left: 10.w),
           child:
-              AppIconImage(image: ImageUtils.filterIcon, width: 45, height: 45),
+              appIconImage(image: ImageUtils.filterIcon, width: 45, height: 45),
         ),
       ),
     ],
@@ -228,6 +240,64 @@ class HomeMenuBar extends StatelessWidget {
         text: text,
         color: isSelect ? Colors.white : AppColors.primarySecondaryElementText,
       ),
+    );
+  }
+}
+
+class CourseItemGrid extends StatelessWidget {
+  final WidgetRef ref;
+  const CourseItemGrid({super.key, required this.ref});
+
+  @override
+  Widget build(BuildContext context) {
+    final courseListP = ref.watch(homeCourseListProvider);
+
+    return courseListP.when(
+      data: (courseList) {
+        if (courseList == null) {
+          return Center(
+            heightFactor: 18.h,
+            child: const Text('No data found'),
+          );
+        } else {
+          return GridView.builder(
+            padding: EdgeInsets.only(top: 20.h),
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: courseList.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 13,
+              mainAxisSpacing: 13,
+              childAspectRatio: 1.5,
+              // mainAxisExtent: 120,
+            ),
+            itemBuilder: (_, index) {
+              return AppNetworImage(
+                imagePath:
+                    "${AppConstants.IMAGE_UPLOADS_PATH}${courseList[index].thumbnail}",
+                fit: BoxFit.cover,
+                course: courseList[index],
+                onTap: () {
+                  navkey.currentState!.pushNamed(
+                      AppRouteConstants.COURSE_DETAIL,
+                      arguments: {'id': courseList[index].id});
+
+                  print(courseList[index].id);
+                  // print(courseList[index].userToken);
+                },
+              );
+            },
+          );
+        }
+      },
+      error: (error, stackTrace) {
+        print("stackTrace : $stackTrace");
+        return toastInfo(error.toString());
+      },
+      loading: () {
+        return const Center(child: CircularProgressIndicator());
+      },
     );
   }
 }

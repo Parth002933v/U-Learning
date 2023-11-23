@@ -20,6 +20,10 @@ class StorageServices {
     return await _preferences.setBool(key, value);
   }
 
+  String getUserToken() {
+    return _preferences.getString(AppConstants.STORAGE_USER_TOKEN_KEY) ?? "";
+  }
+
   bool getDeviceFirstTimeOpen() {
     return _preferences.getBool(AppConstants.STORAGE_DEVICE_FIRST_TIME_OPEN) ??
         false;
@@ -39,8 +43,8 @@ class StorageServices {
     final userPeofileInfo =
         _preferences.getString(AppConstants.STORAGE_USER_PROFILE_KEY) ?? '';
 
-    final usetJson = UserProfile.fromJson(jsonDecode(userPeofileInfo));
+    final userJson = UserProfile.fromJson(jsonDecode(userPeofileInfo));
 
-    return usetJson;
+    return userJson;
   }
 }

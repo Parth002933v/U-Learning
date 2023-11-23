@@ -9,6 +9,7 @@ import 'package:ulearning/common/routes/route_name_constants.dart';
 import 'package:ulearning/common/utils/contants.dart';
 import 'package:ulearning/common/utils/tost_mesage.dart';
 import 'package:ulearning/features/sign_in/provider/sign_in_notifire.dart';
+import 'package:ulearning/features/sign_in/repo/signin_repo.dart';
 import 'package:ulearning/global.dart';
 import 'package:ulearning/main.dart';
 
@@ -38,8 +39,7 @@ class SignInController {
 
     /// if all the conditions are correct
     try {
-      final credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+      final credential = await SignInRepo.firebaseSignIn(email, password);
 
       if (credential.user == null) {
         toastInfo("user not found please register user");
@@ -94,22 +94,25 @@ class SignInController {
     ref.read(globalLoaderProvider.notifier).setLoderValue(false);
   }
 
-  void asyncPostAllData(LoginRequestEntity loginRequestEntity) {
-    try {
-      Global.storageServices.setString(
-        AppConstants.STORAGE_USER_PROFILE_KEY,
-        jsonEncode(
-          {'name': loginRequestEntity.name, 'email': loginRequestEntity.email},
-        ),
-      );
+  Future<void> asyncPostAllData(LoginRequestEntity loginRequestEntity) async {
+    final result = await SignInRepo.login(params: loginRequestEntity);
 
-      Global.storageServices
-          .setString(AppConstants.STORAGE_USER_TOKEN_KEY, 'value');
+    if (result.code == 200) {
+      print("the result code is : ${result.code}");
+      try {
+        await Global.storageServices.setString(
+            AppConstants.STORAGE_USER_PROFILE_KEY, jsonEncode(result.data));
 
-      navkey.currentState?.pushNamedAndRemoveUntil(
-          AppRouteConstants.APPLICATION, (route) => false);
-    } catch (e) {
-      toastInfo(e.toString());
+        await Global.storageServices.setString(
+            AppConstants.STORAGE_USER_TOKEN_KEY, result.data!.access_token!);
+
+        navkey.currentState?.pushNamedAndRemoveUntil(
+            AppRouteConstants.APPLICATION, (route) => false);
+      } catch (e) {
+        toastInfo(e.toString());
+      }
+    } else {
+      toastInfo("Login Error");
     }
   }
 }

@@ -6,4 +6,5 @@ class AppRouteConstants {
   static const String SIGN_UP = '/SignUp';
   static const String APPLICATION = '/application';
   static const String HOME = '/home';
+  static const String COURSE_DETAIL = '/courseDetail';
 }

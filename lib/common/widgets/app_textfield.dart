@@ -53,7 +53,7 @@ Widget appTextField({
                   width: surfixIcon ? 20.w : null,
                   // margin: EdgeInsets.only(left: w * 0.04, right: w * 0.02),
                   margin: EdgeInsets.only(left: 15.w, right: 10.w),
-                  child: AppIconImage(
+                  child: appIconImage(
                     image: iconName,
                   ),
                 ),

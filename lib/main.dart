@@ -9,10 +9,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ulearning/common/routes/routes.dart';
 import 'package:ulearning/common/style/app_colors.dart';
+import 'package:ulearning/common/services/http_util.dart';
 import 'package:ulearning/global.dart';
 
 Future<void> main() async {
   await Global.init();
+
+  // await HttpUtil().post("api/login", queryParameters: {
+  //   "type": 1,
+  //   "name": "Parth",
+  //   "description": null,
+  //   "email": "pp542004@gmail.com",
+  //   "phone": null,
+  //   "avatar": "uploads/default.png",
+  //   "open_id": "phyzrH9GUHZISrAQYGhbcD5EEpp1",
+  //   "online": null
+  // });
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -36,7 +48,7 @@ class MyApp extends StatelessWidget {
           appBarTheme:
               const AppBarTheme(backgroundColor: AppColors.primarBackground),
         ),
-        themeMode: ThemeMode.system,
+        themeMode: ThemeMode.light,
         // initialRoute: "/welcome",
         onGenerateRoute: AppRoutes.onGenerateRoute,
       ),

@@ -50,6 +50,8 @@ class SignUpController {
                   "The Email has been send to verify your accounnt. Please open that email"),
             );
         credential.user?.updateDisplayName(name);
+        String photoUrl = "uploads/default.png";
+        await credential.user?.updatePhotoURL(photoUrl);
         navkey.currentState?.pop();
       }
     } on FirebaseAuthException catch (e) {

@@ -11,6 +11,7 @@ import 'package:ulearning/common/widgets/build_app_bar.dart';
 import 'package:ulearning/features/sign_in/provider/sign_in_notifire.dart';
 import 'package:ulearning/features/sign_in/controller/sign_in_controller.dart';
 import 'package:ulearning/features/sign_in/view/widget/sign_in_widgets.dart';
+import 'package:ulearning/main.dart';
 
 class SignIn extends ConsumerStatefulWidget {
   const SignIn({super.key});
@@ -36,7 +37,6 @@ class _SignInState extends ConsumerState<SignIn> {
     return Scaffold(
       // white backgroundColor
       // backgroundColor: Colors.white,
-
 
       // custom appbar
       appBar: buildAppBar(tital: "Login"),
@@ -71,7 +71,7 @@ class _SignInState extends ConsumerState<SignIn> {
             ),
             SizedBox(height: 20.h),
 
-            Center(
+            const Center(
               child: Text14Normal(text: "Or use your email account to login"),
             ),
 
@@ -116,10 +116,7 @@ class _SignInState extends ConsumerState<SignIn> {
                     buttonName: "Sign in",
                     isLoading: globalLoaderP,
                   ),
-
-                  // SizedBox(height: h * 0.03),
                   SizedBox(height: 30.h),
-
                   AppButton(
                     onTap: () {
                       // navigate to signup page

@@ -6,7 +6,6 @@ import 'package:ulearning/common/utils/image_utils.dart';
 import 'package:ulearning/common/widgets/app_button.dart';
 import 'package:ulearning/common/widgets/text_widgets.dart';
 
-
 // welcome pages
 Widget appOnBoardpage({
   String image = ImageConstant.image1,

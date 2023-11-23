@@ -39,4 +39,13 @@ class ImageUtils {
   static const String menu = '$_basePathIcons/menu.png';
   static const String user = '$_basePathIcons/person.png';
   static const String me = '$_basePathIcons/me.png';
+  static const String people = '$_basePathIcons/people.png';
+  static const String star = '$_basePathIcons/star.png';
+
+  static const String video = '$_basePathIcons/video_detail.png';
+  static const String file = '$_basePathIcons/file_detail.png';
+  static const String download = '$_basePathIcons/download_detail.png';
+  static const String lesson = '$_basePathIcons/image1.png';
+  static const String arrowRight = '$_basePathIcons/arrow_right.png';
+  static const String arrowLeft = '$_basePathIcons/arrow.png';
 }

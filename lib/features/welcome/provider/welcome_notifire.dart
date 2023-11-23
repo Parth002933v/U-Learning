@@ -1,15 +1,5 @@
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-part 'welcome_notifire.g.dart';
-
-@riverpod
-class IndexDot extends _$IndexDot {
-  @override
-  int build() {
-    return 0;
-  }
-
-  void changeIndex(int value) {
-    state = value;
-  }
-}
+final indexDotProvider = StateProvider.autoDispose<int>((ref) {
+  return 0;
+});

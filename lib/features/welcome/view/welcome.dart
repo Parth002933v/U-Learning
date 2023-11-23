@@ -6,7 +6,6 @@ import 'package:ulearning/common/utils/image_utils.dart';
 import 'package:ulearning/features/welcome/provider/welcome_notifire.dart';
 import 'package:ulearning/features/welcome/view/widget/welcome_widgets.dart';
 
-
 class Welcome extends ConsumerStatefulWidget {
   const Welcome({super.key});
 
@@ -42,7 +41,7 @@ class _WelcomeState extends ConsumerState<Welcome> {
             PageView(
               physics: const RangeMaintainingScrollPhysics(),
               onPageChanged: (value) {
-                indexN.changeIndex(value);
+                indexN.update((state) => value);
               },
               controller: _controller,
               children: [
