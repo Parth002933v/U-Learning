@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/src/consumer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:ulearning/common/model/Data.dart';
+import 'package:ulearning/common/routes/route_name_constants.dart';
 import 'package:ulearning/common/style/app_colors.dart';
 import 'package:ulearning/common/style/box_decoration.dart';
 import 'package:ulearning/common/utils/contants.dart';
@@ -10,6 +12,8 @@ import 'package:ulearning/common/widgets/app_image.dart';
 import 'package:ulearning/common/widgets/course_include_item.dart';
 import 'package:ulearning/common/widgets/shimmer_container.dart';
 import 'package:ulearning/common/widgets/text_widgets.dart';
+import 'package:ulearning/features/lesson_detail/provider/lesson_detail_provider.dart';
+import 'package:ulearning/main.dart';
 
 class CourseIncludeContainer extends StatelessWidget {
   final CourseItem data;
@@ -214,11 +218,90 @@ class CourseDetailLoading extends StatelessWidget {
             ],
           ),
           SizedBox(height: 20.h),
-          ShimmerContainer(width: 100),
-          SizedBox(height: 15.h),
-          ShimmerContainer(width: double.infinity, height: 100),
         ],
       ),
+    );
+  }
+}
+
+class LessonList extends StatelessWidget {
+  final List<LessonItem> lessonList;
+  final WidgetRef ref;
+  const LessonList({
+    super.key,
+    required this.lessonList,
+    required this.ref,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text16Normal(
+          text: "Lesson List",
+          fontWeight: FontWeight.bold,
+          color: AppColors.primaryText,
+        ),
+        SizedBox(height: 15.h),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: lessonList.length,
+          itemBuilder: (context, index) => InkWell(
+            onTap: () {
+              ref.watch(lessonDetailProvider(lessonList[index].id!.toInt()));
+              navkey.currentState!.pushNamed(AppRouteConstants.LESSON_DETAIL);
+            },
+            child: Container(
+              height: 90.h,
+              // color: Colors.red,
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              decoration: buildBoxDecoration(
+                  color: AppColors.primarBackground, giveShadow: true),
+              child: Row(
+                children: [
+                  appIconImage(
+                    isNetwokImage: true,
+                    image:
+                        "${AppConstants.IMAGE_UPLOADS_PATH}${lessonList[index].thumbnail}",
+                    height: 70.h,
+                    width: 70.w,
+                  ),
+                  const SizedBox(width: 10),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text14Normal(
+                        text: lessonList[index].name!,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primaryText,
+                      ),
+                      SizedBox(
+                        width: 210.w,
+                        child: Text12Normal(
+                          text: lessonList[index].description!,
+                          color: AppColors.primarySecondaryElementText,
+                          fontWeight: FontWeight.w500,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  const appIconImage(
+                    image: ImageUtils.arrowRight,
+                    width: 30,
+                    height: 30,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

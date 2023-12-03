@@ -137,7 +137,7 @@ class CourseItem {
       };
 }
 
-///------------
+///=============================================================================
 class CourseDetailRequestEntity {
   int? id;
 
@@ -166,6 +166,165 @@ class CourseDetailResponseEntity {
         code: json["code"],
         msg: json["msg"],
         data: json["data"] == null ? null : CourseItem.fromJson(json["data"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "code": code,
+        "msg": msg,
+        "data": data?.toJson(),
+      };
+}
+
+///=============================================================================
+
+class LessonListRequestEntity {
+  int? courseID;
+
+  LessonListRequestEntity({
+    this.courseID,
+  });
+
+  Map<String, dynamic> toJson() => {
+        "courseID": courseID,
+      };
+}
+
+class LessonListResponseEntity {
+  final int? code;
+  final String? msg;
+  final List<LessonItem>? data;
+
+  LessonListResponseEntity({
+    this.code,
+    this.msg,
+    this.data,
+  });
+
+  factory LessonListResponseEntity.fromJson(Map<String, dynamic> json) =>
+      LessonListResponseEntity(
+        code: json["code"],
+        msg: json["msg"],
+        data: json["data"] == null
+            ? []
+            : List<LessonItem>.from(
+                json["data"]!.map((x) => LessonItem.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "code": code,
+        "msg": msg,
+        "data": data == null
+            ? []
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
+      };
+}
+
+class LessonItem {
+  final int? id;
+  final int? courseId;
+  final String? name;
+  final String? thumbnail;
+  final String? description;
+  final List<Video>? video;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+
+  LessonItem({
+    this.id,
+    this.courseId,
+    this.name,
+    this.thumbnail,
+    this.description,
+    this.video,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory LessonItem.fromJson(Map<String, dynamic> json) => LessonItem(
+        id: json["id"],
+        courseId: json["course_id"],
+        name: json["name"],
+        thumbnail: json["thumbnail"],
+        description: json["description"],
+        video: json["video"] == null
+            ? []
+            : List<Video>.from(json["video"]!.map((x) => Video.fromJson(x))),
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "course_id": courseId,
+        "name": name,
+        "thumbnail": thumbnail,
+        "description": description,
+        "video": video == null
+            ? []
+            : List<dynamic>.from(video!.map((x) => x.toJson())),
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+      };
+}
+
+class Video {
+  final String? name;
+  final String? thumbnail;
+  final String? url;
+
+  Video({
+    this.name,
+    this.thumbnail,
+    this.url,
+  });
+
+  factory Video.fromJson(Map<String, dynamic> json) => Video(
+        name: json["name"],
+        thumbnail: json["thumbnail"],
+        url: json["url"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "thumbnail": thumbnail,
+        "url": url,
+      };
+}
+
+///=============================================================================
+
+class LessonDetailRequestEntity {
+  int? lessonID;
+
+  LessonDetailRequestEntity({
+    this.lessonID,
+  });
+
+  Map<String, dynamic> toJson() => {
+        "lessonID": lessonID,
+      };
+}
+
+class LessonDetailResponseEntity {
+  final int? code;
+  final String? msg;
+  final LessonItem? data;
+
+  LessonDetailResponseEntity({
+    this.code,
+    this.msg,
+    this.data,
+  });
+
+  factory LessonDetailResponseEntity.fromJson(Map<String, dynamic> json) =>
+      LessonDetailResponseEntity(
+        code: json["code"],
+        msg: json["msg"],
+        data: json["data"] == null ? null : LessonItem.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {

@@ -3,6 +3,7 @@ import 'package:ulearning/common/routes/route_name_constants.dart';
 import 'package:ulearning/features/application/view/application.dart';
 import 'package:ulearning/features/course_detail/view/course_detail.dart';
 import 'package:ulearning/features/home/view/home.dart';
+import 'package:ulearning/features/lesson_detail/view/lesson_detail.dart';
 import 'package:ulearning/features/sign_in/view/sign_in.dart';
 import 'package:ulearning/features/sign_up/view/sign_up.dart';
 import 'package:ulearning/features/welcome/view/welcome.dart';
@@ -16,7 +17,9 @@ class AppRoutes {
     RouteEntity(path: AppRouteConstants.APPLICATION, page: const Application()),
     RouteEntity(path: AppRouteConstants.HOME, page: const Home()),
     RouteEntity(
-        path: AppRouteConstants.COURSE_DETAIL, page: const CourseDetaild())
+        path: AppRouteConstants.COURSE_DETAIL, page: const CourseDetaild()),
+    RouteEntity(
+        path: AppRouteConstants.LESSON_DETAIL, page: const LessonDetail())
   ];
 
   static MaterialPageRoute onGenerateRoute(RouteSettings settings) {

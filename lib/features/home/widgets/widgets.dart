@@ -7,7 +7,6 @@ import 'package:ulearning/common/style/app_colors.dart';
 import 'package:ulearning/common/style/textfield_box_decoration.dart';
 import 'package:ulearning/common/utils/contants.dart';
 import 'package:ulearning/common/utils/image_utils.dart';
-import 'package:ulearning/common/utils/tost_mesage.dart';
 import 'package:ulearning/common/widgets/app_image.dart';
 import 'package:ulearning/common/widgets/app_textfield.dart';
 import 'package:ulearning/common/widgets/text_widgets.dart';
@@ -26,7 +25,7 @@ AppBar homeAppBar({required WidgetRef ref}) {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          appIconImage(image: ImageUtils.menu),
+          const appIconImage(image: ImageUtils.menu),
           profileState.when(
             data: (data) {
               return GestureDetector(
@@ -35,7 +34,7 @@ AppBar homeAppBar({required WidgetRef ref}) {
                   height: 40.h,
                   width: 40.w,
                   decoration: BoxDecoration(
-                    color: Colors.red,
+                    // color: Colors.red,
                     image: DecorationImage(
                       image: NetworkImage(
                           "${AppConstants.SERVER_API_URL}${data.avatar!}"),
@@ -89,7 +88,7 @@ Widget homeSearchBar() {
           children: [
             Container(
               margin: REdgeInsets.only(left: 15.w, right: 5.w),
-              child: appIconImage(image: ImageUtils.searchIcon),
+              child: const appIconImage(image: ImageUtils.searchIcon),
             ),
             SizedBox(
               width: 240.w,
@@ -107,8 +106,8 @@ Widget homeSearchBar() {
         onTap: () {},
         child: Container(
           margin: EdgeInsets.only(left: 10.w),
-          child:
-              appIconImage(image: ImageUtils.filterIcon, width: 45, height: 45),
+          child: const appIconImage(
+              image: ImageUtils.filterIcon, width: 45, height: 45),
         ),
       ),
     ],
@@ -273,27 +272,46 @@ class CourseItemGrid extends StatelessWidget {
               // mainAxisExtent: 120,
             ),
             itemBuilder: (_, index) {
-              return AppNetworImage(
-                imagePath:
-                    "${AppConstants.IMAGE_UPLOADS_PATH}${courseList[index].thumbnail}",
-                fit: BoxFit.cover,
-                course: courseList[index],
+              return InkWell(
                 onTap: () {
                   navkey.currentState!.pushNamed(
                       AppRouteConstants.COURSE_DETAIL,
                       arguments: {'id': courseList[index].id});
-
-                  print(courseList[index].id);
-                  // print(courseList[index].userToken);
                 },
+                child: Stack(
+                  alignment: Alignment.center,
+                  fit: StackFit.expand,
+                  children: [
+                    appIconImage(
+                        key: key,
+                        isNetwokImage: true,
+                        image:
+                            "${AppConstants.IMAGE_UPLOADS_PATH}${courseList[index].thumbnail}"),
+                    Container(
+                      padding: EdgeInsets.only(
+                          left: 10.w, right: 15.w, bottom: 20.h),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          FadeText(text: courseList[index].name!),
+                          FadeText(
+                            text: "${courseList[index].lessonNum!} Lessons",
+                            fontSize: 10,
+                            color: AppColors.primaryFourthElementText,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               );
             },
           );
         }
       },
       error: (error, stackTrace) {
-        print("stackTrace : $stackTrace");
-        return toastInfo(error.toString());
+        return const Center(child: Text('There Is an error in loading data'));
       },
       loading: () {
         return const Center(child: CircularProgressIndicator());

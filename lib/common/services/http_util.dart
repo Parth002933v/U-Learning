@@ -15,8 +15,8 @@ class HttpUtil {
   HttpUtil._interanal() {
     BaseOptions options = BaseOptions(
       baseUrl: AppConstants.SERVER_API_URL,
-      connectTimeout: const Duration(seconds: 10),
-      receiveTimeout: const Duration(seconds: 10),
+      connectTimeout: const Duration(seconds: 1000),
+      receiveTimeout: const Duration(seconds: 1000),
       headers: {},
       contentType: "application/json; charset=utf-8",
       responseType: ResponseType.json,
@@ -29,11 +29,18 @@ class HttpUtil {
           return handler.next(options);
         },
         onResponse: (response, handler) {
-
           return handler.next(response);
         },
         onError: (DioException e, handler) {
-
+          handler.reject(
+            DioException.badResponse(
+              statusCode: 404,
+              requestOptions: RequestOptions(),
+              response: Response(
+                requestOptions: RequestOptions(),
+              ),
+            ),
+          );
           ErrorEntity eInfo = createErrorEntity(e);
           toastInfo(eInfo.message);
           onError(eInfo);
@@ -62,7 +69,6 @@ class HttpUtil {
     requestOptions.headers = requestOptions.headers ?? {};
     Map<String, dynamic>? authorization = getAuthorizationHeader();
     if (authorization != null) {
-      print(authorization);
       requestOptions.headers!.addAll(authorization);
     }
 

@@ -47,18 +47,22 @@ dependencies:
   cached_network_image: ^3.3.0
   google_fonts: ^6.1.0
   shimmer: ^3.0.0
+  chewie: ^1.7.1
+  video_player: ^2.8.1
+#  better_player: ^0.0.63
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: "^0.13.1"
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
+flutter_launcher_icons:
+  android: "launcher_icon"
+  image_path: "assets/appIcon/logo2.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+
   flutter_lints: ^2.0.0
-  build_runner: ^2.4.6
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -77,6 +81,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/logo/
+    - assets/appIcon/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

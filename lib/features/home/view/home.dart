@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ulearning/features/home/povider/course_list_provider.dart';
-import 'package:ulearning/features/home/view/widgets/widgets.dart';
+import 'package:ulearning/features/home/widgets/widgets.dart';
 
 class Home extends ConsumerWidget {
   const Home({super.key});
@@ -12,16 +12,14 @@ class Home extends ConsumerWidget {
     return Scaffold(
       appBar: homeAppBar(ref: ref),
       body: RefreshIndicator(
+        triggerMode: RefreshIndicatorTriggerMode.anywhere,
         onRefresh: () async {
           return await ref.refresh(homeCourseListProvider);
         },
-        child: Padding(
+        child: ListView(
           padding: EdgeInsets.symmetric(horizontal: 25.w),
-          child: SingleChildScrollView(
-            primary: false,
-            physics: const AlwaysScrollableScrollPhysics(
-                parent: BouncingScrollPhysics()),
-            child: Column(
+          children: [
+            Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -34,10 +32,10 @@ class Home extends ConsumerWidget {
                 banner(),
                 SizedBox(height: 10.h),
                 const HomeMenuBar(),
-                CourseItemGrid(ref: ref)
+                CourseItemGrid(key: UniqueKey(), ref: ref)
               ],
             ),
-          ),
+          ],
         ),
       ),
     );

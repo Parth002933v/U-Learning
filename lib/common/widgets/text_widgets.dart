@@ -67,6 +67,7 @@ class Text14Normal extends StatelessWidget {
   final TextAlign textAlign;
   final FontWeight fontWeight;
   final double height;
+  final int? maxLines;
   const Text14Normal({
     super.key,
     this.text = "Enter The Text",
@@ -74,6 +75,7 @@ class Text14Normal extends StatelessWidget {
     this.textAlign = TextAlign.center,
     this.fontWeight = FontWeight.normal,
     this.height = 1.35,
+    this.maxLines = null,
   });
 
   @override
@@ -81,6 +83,8 @@ class Text14Normal extends StatelessWidget {
     return Text(
       text,
       textAlign: textAlign,
+      overflow: TextOverflow.ellipsis,
+      maxLines: maxLines,
       style: TextStyle(
         fontSize: 14,
         fontWeight: fontWeight,
@@ -96,18 +100,24 @@ class Text12Normal extends StatelessWidget {
   final Color color;
   final TextAlign textAlign;
   final FontWeight fontWeight;
+  final int? maxLines;
+  final TextOverflow? overflow;
   const Text12Normal({
     super.key,
     this.text = "Enter Text",
     this.color = AppColors.primaryElementText,
     this.textAlign = TextAlign.center,
     this.fontWeight = FontWeight.normal,
+    this.maxLines,
+    this.overflow,
   });
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
+      maxLines: maxLines,
+      overflow: overflow,
       textAlign: textAlign,
       style: TextStyle(
         fontSize: 12,

@@ -9,7 +9,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ulearning/common/routes/routes.dart';
 import 'package:ulearning/common/style/app_colors.dart';
-import 'package:ulearning/common/services/http_util.dart';
 import 'package:ulearning/global.dart';
 
 Future<void> main() async {

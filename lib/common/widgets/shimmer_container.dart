@@ -7,6 +7,6 @@ Container ShimmerContainer({double height = 30, double width = 200}) {
     // color: Colors.white,
     height: height.h,
     width: width.w,
-    decoration: buildBoxDecoration(),
+    decoration: buildBoxDecoration(color: Colors.white),
   );
 }

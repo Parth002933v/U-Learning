@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ulearning/common/model/Data.dart';
 import 'package:ulearning/common/style/app_colors.dart';
 import 'package:ulearning/common/utils/image_utils.dart';
+import 'package:ulearning/common/widgets/shimmer_container.dart';
 import 'package:ulearning/common/widgets/text_widgets.dart';
 
 // Widget AppImage({
@@ -83,16 +85,17 @@ class appIconImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final ImageProvider myImage = AssetImage(image);
-
-    // final Image = isNetwokImage ? NetworkImage(image) : AssetImage(image);
-
     return isNetwokImage
-        ? Image.network(
-            image,
+        ? CachedNetworkImage(
+            key: key,
+            imageUrl: image,
+            // placeholder: (context, url) => ShimmerContainer(),
+            errorWidget: (context, url, error) => const appIconImage(
+              image: ImageUtils.defaultImg,
+            ),
+            width: width,
             fit: fit,
             height: height,
-            width: width,
           )
         : Image.asset(
             image,
@@ -127,11 +130,14 @@ class AppNetworImage extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
+        key: UniqueKey(),
         padding: EdgeInsets.only(left: 10.w, right: 15.w, bottom: 20.h),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
           image: DecorationImage(
-            image: NetworkImage(imagePath),
+            image: NetworkImage(
+              imagePath,
+            ),
             fit: fit,
           ),
         ),

@@ -1,6 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ulearning/common/api/course_api.dart';
 import 'package:ulearning/common/model/Data.dart';
-import 'package:ulearning/features/course_detail/repo/course_detail_repo.dart';
 
 final courseDetailProvider =
     FutureProvider.autoDispose.family<CourseItem?, int>((ref, int id) async {
@@ -9,7 +11,7 @@ final courseDetailProvider =
 
   courseRequestEntity.id = id;
 
-  final resopnse = await CourseDetailRepo.courseDetail(courseRequestEntity);
+  final resopnse = await CourseApi.courseDetail(courseRequestEntity);
 
   if (resopnse.code == 200) {
     return resopnse.data;
@@ -18,10 +20,17 @@ final courseDetailProvider =
   return null;
 });
 
-// final Provider = FutureProvider.autoDispose.family<, >((ref, ) async {
-//   return ;
-// });
+///=============================================================================
+final lessonListProvider = FutureProvider.autoDispose
+    .family<List<LessonItem>?, int>((ref, int id) async {
+//
+  LessonListRequestEntity lessonListRequestEntity = LessonListRequestEntity();
+  lessonListRequestEntity.courseID = id;
 
-// final courseDetailProvider = FutureProvider.autoDispose.family({ref,} async {
-//   return ;
-// });
+  final response = await CourseApi.lessonList(lessonListRequestEntity);
+
+  if (response.code == 200) {
+    return response.data;
+  }
+  return null;
+});
