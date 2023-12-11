@@ -10,8 +10,11 @@ Upcoming: Stay tuned for the integration of secure payment methods for a hassle-
 
 Tech Stack:
 Frontend: Built using Flutter for a seamless cross-platform experience.
+
 StateManagment : used Riverpod as a statemanagment
+
 Backend: Powered by Laravel, ensuring stability, security, and scalability.
+
 Future Plans: Adding secure payment gateways for seamless course purchases.
 
 demo : 
