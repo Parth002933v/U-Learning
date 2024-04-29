@@ -1,4 +1,5 @@
-Note : this is only frontend code of flutter. laravel backend code is in my local device. but I'll live it soon 
+Note : this is only frontend code of flutter. backend code for the app used laravel but the project was deleted by mistake so I decided to re-write this code 
+using node js. I will upload it soon 
 
 U Learning - Your Interactive Learning Hub 🎓
 
